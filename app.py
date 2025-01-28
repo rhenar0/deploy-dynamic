@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from os import getenv
 from datetime import datetime, timedelta
+import json
 
 from flask import (
     current_app,
@@ -44,6 +45,25 @@ app = create_app()
 recaptcha = ReCaptcha(app)
 recaptcha.theme = 'dark'
 
+TOKEN_FILE = "tokens.json"
+
+def load_tokens():
+    """Charge la liste des tokens depuis un fichier JSON."""
+    try:
+        with open(TOKEN_FILE, "r") as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return []  # Retourne une liste vide si le fichier n'existe pas
+    except json.JSONDecodeError:
+        return []  # Retourne une liste vide si le fichier contient des données invalides
+
+def check_access_key(access_key):
+    """Vérifie si le token fourni est valide."""
+    tokens = load_tokens()
+    for token in tokens:
+        if token == access_key:
+            return True, "Access granted.", token
+    return False, "Invalid access key.", None
 
 def render(template, **kwargs):
     """
@@ -88,11 +108,14 @@ def login():
             return render('login.html', error=True, message="You need to be an administrator to login.")
 
         session["verified"] = True
-        session["user_id"] = user["user_id"]
-        session["user_name"] = user["username"]
-        session["team_id"] = user["team_id"]
-        session["team_name"] = user["team_name"]
-        session["admin"] = user["is_admin"]
+        session["user_id"] = access_key
+        session["user_name"] = access_key
+        session["team_id"] = access_key
+        session["team_name"] = access_key
+        if access_key = "XXX":
+            session["admin"] = True
+        else:
+            session["admin"] = False
 
         return redirect(url_for("index"))
     return redirect(url_for("login"))
