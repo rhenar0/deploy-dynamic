@@ -2,7 +2,7 @@
 
 {% block main %}
 <div class="row center">
-	<h1>Deploy unique instance</h1>
+	<h1>Deployer vos Instances !</h1>
 </div>
 
 <div>
@@ -10,24 +10,24 @@
 		<div class="terminal">
 			<h3>Challenge : {{ challenge }}</h3>
 
-			<p>Instance is starting on host {{ host }} and port {{ port }}</p>
+			<p>L'instance démarre sur : {{ host }} avec le port {{ port }}</p>
 
 			<br>
 
-			<h4>Connection</h4>
+			<h4>Connexion</h4>
 
 			{% if type == 'tcp' %}
 				<p><pre>nc {{ host }} {{ port }}</pre></p>
 			{% elif type == 'web' %}
-				<p><a href="http://{{ host }}:{{ port }}" target="_blank">http://{{ host }}:{{ port }}</a></p>
+				<p><a href="http://{{ host }}:{{ port }}" target="_blank">http(s)://{{ host }}:{{ port }}</a></p>
 			{% elif type == 'ssh' %}
 				<p><pre>ssh change_me@{{ host }} -p {{ port }}</pre></p>
 				<br>
-				<p>User and password for SSH are in the challenge description.</p>
+				<p>L'utilisateur et le mot de passe se trouve dans la description du challenge.</p>
 			{% endif %}			
 		</div>
 
-		<a href="{{ url_for('index')}}">Go back</a>
+		<a href="{{ url_for('index')}}">Retour</a>
 	</div>
 </div>
 {% endblock %}

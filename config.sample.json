@@ -1,7 +1,7 @@
 {
-    "website_title": "HeroCTF - Deploy dynamic challenges",
-    "ctfd_url": "https://ctf.heroctf.fr",
-    "max_instance_count": 100,
+    "website_title": "Cyber Ninja CTF - Instance Unique",
+    "ctfd_url": "https://cyber-ninja-ctf.cloud/",
+    "max_instance_count": 1000,
     "max_instance_duration": 100,
     "max_instance_per_team": 5,
     "random_ports": {
@@ -10,16 +10,8 @@
     },
     "hosts": [
         {
-            "domain": "127.0.0.1",
+            "domain": "dyn-01.cyber-ninja-ctf.cloud",
             "api": "unix:///var/run/docker.sock"
-        },
-        {
-            "domain": "dyn-01.heroctf.fr",
-            "api": "tcp://192.168.172.7:2375"
-        },
-        {
-            "domain": "dyn-02.heroctf.fr",
-            "api": "tcp://192.168.172.174:2375"
         }
     ],
     "challenges": [
